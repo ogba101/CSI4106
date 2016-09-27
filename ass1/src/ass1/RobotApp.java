@@ -11,11 +11,6 @@ public class RobotApp {
 	public static final int STRATEGY_BFS   = 2;
 	public static final int STRATEGY_ASTAR = 3;
 	
-	public static final char ORIENTATION_NORTH = 'N';
-	public static final char ORIENTATION_EAST  = 'E';
-	public static final char ORIENTATION_SOUTH = 'S';
-	public static final char ORIENTATION_WEST  = 'W';
-	
 	private SearchStrategyInterface strategy = null;
 	private Robot robot = null;
 
@@ -44,7 +39,7 @@ public class RobotApp {
 		
 		int[] startPosition = {2,3};
 		
-		char orientation = ORIENTATION_WEST;
+		int orientation = Robot.ORIENTATION_WEST;
 		
 		try {
 			app.generateGrid(gridSize, dirtyCells, obstacleCells, startPosition, orientation);
@@ -89,7 +84,18 @@ public class RobotApp {
 	}
 	
 	public void printSolution() {
+		
+		System.out.println("Printing solution...");
+		
+		if (strategy == null) {
+			return;
+		} //if
+		
 		RobotAction[] solution = strategy.getSolution();
+		
+		if (solution == null) {
+			return;
+		} //if
 		
 		for(int i = 0; i < solution.length; i++) {
 			
@@ -100,13 +106,13 @@ public class RobotApp {
 	 * Generates the grid and sets the robot 
 	 * to point to the starting position
 	 */
-	public void generateGrid(int gridSize, int[][] dirt, int[][] obstacles, int[] startPos, char orientation) {
-		robot = new Robot();
+	public void generateGrid(int gridSize, int[][] dirt, int[][] obstacles, int[] startPos, int orientation) {
+		
 		Cell[][] grid = new Cell[gridSize][gridSize];
 		//@TODO: grid with all the cells
 		for (int i = 0; i < gridSize; i++) {
 			for (int j = 0; j < gridSize; j++) {
-				grid[i][j] = new Cell();
+				grid[i][j] = new Cell(i,j);
 				// @TODO set cell properties
 			}
 		} //for
@@ -117,5 +123,8 @@ public class RobotApp {
 				// @TODO: set valid child cells
 			}
 		} //for
+		
+		
+		robot = new Robot(grid, orientation, startPos[0], startPos[1]);
 	}
 }

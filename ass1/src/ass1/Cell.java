@@ -1,3 +1,5 @@
+package ass1;
+
 public class Cell 
 {
 private int state; //1- clean, 2- dirty, 3- obstacle, (4 visited)?
