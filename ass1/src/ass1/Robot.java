@@ -1,5 +1,72 @@
 package ass1;
 
-public class Robot {
 
+public class Robot {
+	static final int MOVE=50;
+	static final int LR=20;
+	static final int SUCK=10;
+	public static final int ORIENTATION_NORTH = 0;
+	public static final int ORIENTATION_EAST  = 1;
+	public static final int ORIENTATION_SOUTH = 2;
+	public static final int ORIENTATION_WEST  = 3;
+    int cost=0;
+    static int x,y;
+	static int orientation;
+	Cell grid[][];
+	
+	public Robot(Cell[][]grid,int oreintation,int x,int y)
+	{}
+	
+	void move()
+	{
+		updateCord();
+		cost+=MOVE;
+	}
+	void left()
+	{
+		cost+=LR;
+	}
+	void right()
+	{
+		cost+=LR;
+	}
+	void suck()
+	{
+		cost+=SUCK;
+	}
+	void setOrientation(int or)
+	{
+		this.orientation=or;
+	}
+	private void updateCord() // update the coordinates
+	{
+	
+	if(orientation==ORIENTATION_NORTH)
+	{
+		y--;
+	if(y<0){throw new IndexOutOfBoundsException("Index " + y + " is out of bounds!");}
+
+	};
+	if(orientation==ORIENTATION_SOUTH)
+	{
+		y++;
+		if(y>3){throw new IndexOutOfBoundsException("Index " + y + " is out of bounds!");}
+
+	};
+	if(orientation==ORIENTATION_EAST)
+	{
+		x++;
+		if(x>3){throw new IndexOutOfBoundsException("Index " + x + " is out of bounds!");}
+	};
+	if(orientation==ORIENTATION_WEST)
+	{
+		x--;
+		if(x<0){throw new IndexOutOfBoundsException("Index " + x + " is out of bounds!");}
+
+	};
+	}
+//	int orientToNum(char val) // map orientation to numbers
+//	{
+//		return 0;
+//	}
 }
