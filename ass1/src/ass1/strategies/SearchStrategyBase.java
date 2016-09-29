@@ -8,21 +8,19 @@ abstract public class SearchStrategyBase implements SearchStrategyInterface {
 	
 	private Cell[][] grid;
 	protected Robot robot;
+	protected int dirtyCellCount;
 	
 	public SearchStrategyBase (Cell[][] grid, Robot robot) {
 		this.grid = grid;
 		this.robot = robot;
-	}
-	
-	protected boolean isGoalReached() {		
+		dirtyCellCount = 0;
 		for (int row = 0; row < grid.length; row++) {
 			for (int col = 0; col < grid[row].length; col++) {				
 				if (grid[row][col].getState() == Cell.STATE_DIRTY) {
-					return false;
+					dirtyCellCount++;
 				} //if
 			} //for
 		} //for
-		return true;
 	}
 
 	abstract public void search();
