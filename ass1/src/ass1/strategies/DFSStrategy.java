@@ -1,13 +1,16 @@
 package ass1.strategies;
 
+import ass1.Cell;
 import ass1.Robot;
-import ass1.RobotAction;
 import ass1.Solution;
-import ass1.strategies.SearchStrategyInterface;
 
-public class DFSStrategy implements SearchStrategyInterface {
-
-	public void search(Robot robot) {
+public class DFSStrategy  extends SearchStrategyBase {
+	
+	public DFSStrategy(Cell[][] grid, Robot robot) {
+		super(grid, robot);
+	}
+	
+	public void search() {
 		// TODO Auto-generated method stub
 		
 	}

@@ -12,6 +12,7 @@ public class RobotApp {
 	
 	private SearchStrategyInterface strategy = null;
 	private Robot robot = null;
+	private Cell[][] grid = null;
 
 	/**
 	 * Point of entry to our app
@@ -72,12 +73,12 @@ public class RobotApp {
 	public void search(int chosenStrategy) throws Exception {
 		switch(chosenStrategy) {
 			case STRATEGY_DFS:
-				strategy = new DFSStrategy();
+				strategy = new DFSStrategy(grid, robot);
 				break;
 			case STRATEGY_BFS:
 				throw new Exception("BFS not implemented");
 			case STRATEGY_ASTAR:
-				strategy = new AStarStrategy();
+				strategy = new AStarStrategy(grid, robot);
 				break;
 			default: 
 				throw new Exception("Unknown search strategy");
@@ -85,7 +86,7 @@ public class RobotApp {
 		
 		//perform the search using our 
 		// newly created strategy
-		strategy.search(robot);
+		strategy.search();
 	}
 	
 	public void printSolution() {
@@ -106,7 +107,7 @@ public class RobotApp {
 	 */
 	public void generateGrid(int gridSize, int[][] dirt, int[][] obstacles, int[] startPos, int orientation) {
 		
-		Cell[][] grid = new Cell[gridSize][gridSize];
+		grid = new Cell[gridSize][gridSize];
 		for (int row = 0; row < gridSize; row++) {
 			for (int col = 0; col < gridSize; col++) {
 				grid[row][col] = new Cell(row,col);
