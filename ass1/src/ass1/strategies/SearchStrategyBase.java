@@ -22,6 +22,10 @@ abstract public class SearchStrategyBase implements SearchStrategyInterface {
 			} //for
 		} //for
 	}
+	
+	protected int getDirtyCellCount() {
+		return dirtyCellCount;
+	}
 
 	abstract public void search();
 

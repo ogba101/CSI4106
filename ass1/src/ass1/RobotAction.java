@@ -20,7 +20,14 @@ public class RobotAction {
 		this.orientation = robot.getOrientation();
 		this.action = action;
 		this.cost = cost;
-		
+	}
+	
+	public RobotAction(int x, int y, int orientation, int action, int cost) {
+		this.x = x;
+		this.y = y;
+		this.orientation = orientation;
+		this.action = action;
+		this.cost = cost;
 	}
 	
 	public int getX() {

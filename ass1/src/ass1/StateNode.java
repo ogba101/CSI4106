@@ -7,11 +7,16 @@ public class StateNode {
 	private StateNode parentNode;
 	private int dirtyCellCount;
 	private ArrayList<RobotAction> actions;
+	private int x;
+	private int y;
+	private int orientation;
+	private int cost;
 		
 	public StateNode () {
 		actions = new ArrayList<RobotAction>();
 		dirtyCellCount = 0;
 		parentNode = null;
+		cost = -1;
 	}
 	
 	public void setParentNode(StateNode node) {
@@ -23,7 +28,12 @@ public class StateNode {
 	}
 	
 	public void addAction(RobotAction action) {
+		cost = -1; // force cost to be recalculated
 		actions.add(action);
+	}
+	
+	public ArrayList<RobotAction> getActions() {
+		return actions;
 	}
 	
 	public int getDirtyCellCount() {
@@ -35,11 +45,44 @@ public class StateNode {
 	}
 	
 	public int getCost() {
-		int cost = 0;
-		for(RobotAction action: actions) {
-			cost += action.getCost();
-		}
+		if (cost < 0) {
+			cost = 0;
+			for(RobotAction action: actions) {
+				cost += action.getCost();
+			} //for
+		} //if
 		return cost;
+	}
+	
+	public int getTotalCost() {
+		if (parentNode == null) {
+			return this.getCost();
+		} //if
+		return parentNode.getCost() + this.getCost();
+	}
+
+	public int getX() {
+		return x;
+	}
+
+	public void setX(int x) {
+		this.x = x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public void setY(int y) {
+		this.y = y;
+	}
+
+	public int getOrientation() {
+		return orientation;
+	}
+
+	public void setOrientation(int orientation) {
+		this.orientation = orientation;
 	}
 	
 }

@@ -3,9 +3,10 @@ package ass1;
 
 public class Robot {
 	
-	static final int MOVE=50;
-	static final int LR=20;
-	static final int SUCK=10;
+	public static final int MOVE=50;
+	public static final int LR=20;
+	public static final int LL=20;
+	public static final int SUCK=10;
 	
 	public static final int ORIENTATION_NORTH = 0;
 	public static final int ORIENTATION_EAST  = 1;
