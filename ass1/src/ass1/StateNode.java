@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class StateNode {
 	
 	private StateNode parentNode;
-	private int dirtyCellCount;
+	private static int dirtyCellCount;
 	private ArrayList<RobotAction> actions;
 	private int x;
 	private int y;
@@ -14,7 +14,6 @@ public class StateNode {
 		
 	public StateNode () {
 		actions = new ArrayList<RobotAction>();
-		dirtyCellCount = 0;
 		parentNode = null;
 		cost = -1;
 	}

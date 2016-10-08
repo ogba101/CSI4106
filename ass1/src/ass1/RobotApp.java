@@ -37,14 +37,14 @@ public class RobotApp {
 				{0,0,0,0}				
 		};
 		
-		int[] startPosition = {3,2};
+		int[] startPosition = {2,3};
 		
 		int orientation = Robot.ORIENTATION_WEST;
 		int chosenStrategy;
 		
 		//chosenStrategy = STRATEGY_DFS;
-		//chosenStrategy = STRATEGY_BFS;
-		chosenStrategy = STRATEGY_ASTAR;
+		chosenStrategy = STRATEGY_BFS;
+		//chosenStrategy = STRATEGY_ASTAR;
 		
 		try {
 			app.generateGrid(gridSize, dirtyCells, obstacleCells, startPosition, orientation);
@@ -76,7 +76,8 @@ public class RobotApp {
 				strategy = new DFSStrategy(grid, robot);
 				break;
 			case STRATEGY_BFS:
-				throw new Exception("BFS not implemented");
+				strategy = new BFSStrategy(grid, robot);
+				break;
 			case STRATEGY_ASTAR:
 				strategy = new AStarStrategy(grid, robot);
 				break;
@@ -122,30 +123,6 @@ public class RobotApp {
 		} //for row
 		
 		// update child cells
-		for (int row = 0; row < gridSize; row++) {
-			for (int col = 0; col < gridSize; col++) {
-				// check cell above
-				if (row > 0 && grid[(row-1)][col].getState() != Cell.STATE_OBSTACLE) {
-					grid[(row-1)][col].addChild(grid[row][col]);
-				} //if
-				
-				// check cell bellow
-				if (row < (gridSize - 1) && grid[(row+1)][col].getState() != Cell.STATE_OBSTACLE) {
-					grid[(row+1)][col].addChild(grid[row][col]);
-				} //if
-				
-				// check cell left
-				if (col > 0 && grid[row][(col-1)].getState() != Cell.STATE_OBSTACLE) {
-					grid[row][(col-1)].addChild(grid[row][col]);
-				} //if
-				
-				// check cell right
-				if (col < (gridSize - 1) && grid[row][(col+1)].getState() != Cell.STATE_OBSTACLE) {
-					grid[row][(col+1)].addChild(grid[row][col]);
-				} //if
-				
-			} // for col
-		} //for row
 		
 		robot = new Robot(grid, orientation, startPos[0], startPos[1]);
 	}

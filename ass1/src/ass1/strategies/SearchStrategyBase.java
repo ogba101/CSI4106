@@ -6,7 +6,7 @@ import ass1.Solution;
 
 abstract public class SearchStrategyBase implements SearchStrategyInterface {
 	
-	private Cell[][] grid;
+	protected Cell[][] grid;
 	protected Robot robot;
 	protected int dirtyCellCount;
 	
@@ -21,6 +21,13 @@ abstract public class SearchStrategyBase implements SearchStrategyInterface {
 				} //if
 			} //for
 		} //for
+		System.out.println("Number of dirty cells "+ dirtyCellCount);
+//		for (int row = 0; row < grid.length; row++) {
+//			for (int col = 0; col < grid[row].length; col++)
+//			{				
+//				grid[row][col].statenode.setDirtyCellCount(dirtyCellCount);
+//	         }  
+//			}
 	}
 	
 	protected int getDirtyCellCount() {

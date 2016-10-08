@@ -14,7 +14,8 @@ public class Robot {
 	public static final int ORIENTATION_WEST  = 3;
 	
     int cost=0;
-    int x,y;
+    private int x;
+	int y;
 	int orientation;
 	Cell grid[][];
 	
@@ -22,7 +23,7 @@ public class Robot {
 	{
 		this.grid = grid;
 		this.orientation = orientation;
-		this.x = x;
+		this.setX(x);
 		this.y = y;
 	}
 	
@@ -76,13 +77,13 @@ public class Robot {
 	};
 	if(orientation==ORIENTATION_EAST)
 	{
-		x++;
-		if(x>3){throw new IndexOutOfBoundsException("Index " + x + " is out of bounds!");}
+		setX(getX() + 1);
+		if(getX()>3){throw new IndexOutOfBoundsException("Index " + getX() + " is out of bounds!");}
 	};
 	if(orientation==ORIENTATION_WEST)
 	{
-		x--;
-		if(x<0){throw new IndexOutOfBoundsException("Index " + x + " is out of bounds!");}
+		setX(getX() - 1);
+		if(getX()<0){throw new IndexOutOfBoundsException("Index " + getX() + " is out of bounds!");}
 
 	};
 	}
@@ -90,4 +91,13 @@ public class Robot {
 //	{
 //		return 0;
 //	}
+
+	public void setX(int x) {
+		this.x = x;
+	}
+
+	public void setY(int y) {
+		this.y=y;
+		
+	}
 }

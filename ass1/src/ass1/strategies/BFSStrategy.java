@@ -9,15 +9,16 @@ import ass1.Solution;
 import ass1.StateNode;
 
 public class BFSStrategy  extends SearchStrategyBase {
-    private Solution solution;//
+    private Solution solution;
 	  LinkedList<StateNode> path = new LinkedList<StateNode>();
-	  Cell startCell= new Cell(1,1);
+	  Cell startCell= null;
     public BFSStrategy(Cell[][] grid, Robot robot) {
     	super(grid, robot);
     }
     
 	public void search() {
     	solution = new Solution();
+  	  solution.addAction(new RobotAction(robot, RobotAction.ACTION_START, 0));
         startCell=grid[robot.getX()][robot.getY()];
         
       while(dirtyCellCount!=0){

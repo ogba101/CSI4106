@@ -7,9 +7,7 @@ public class Cell
 	public static final int STATE_CLEAN    = 1;
 	public static final int STATE_DIRTY    = 2;
 	public static final int STATE_OBSTACLE = 3;
-	
-	private ArrayList<Cell> childCells = null;
-	
+	public StateNode statenode;
 	private int state; //1- clean, 2- dirty, 3- obstacle, (4 visited)?
 	private int x; // x coordinate
 	private int y; // y coordinate
@@ -23,7 +21,7 @@ public class Cell
 		this.x=x;
 		this.y=y;
 		this.state=state;
-		childCells = new ArrayList<Cell>();
+		statenode= new StateNode();
 	}
 	
 	public Cell(int x,int y)
@@ -31,9 +29,11 @@ public class Cell
 		if (x>max|| x<min) throw new IllegalArgumentException("invalid x-coordinate");
 		if (y>max|| y<min) throw new IllegalArgumentException("invalid y-coordinate");
 		this.x=x;
-		this.y=y;
-		childCells = new ArrayList<Cell>();
-	}
+		this.y=y;	
+		statenode= new StateNode();
+		statenode.setX(this.x);
+		statenode.setY(this.y);
+		}
 
 	public int stateInfo()
 	{
@@ -60,8 +60,4 @@ public class Cell
 		this.state=value;
 	}
 	
-	public void addChild(Cell child)
-	{
-		childCells.add(child);
-	}
 }

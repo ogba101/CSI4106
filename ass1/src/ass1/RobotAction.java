@@ -30,6 +30,15 @@ public class RobotAction {
 		this.cost = cost;
 	}
 	
+	public RobotAction(Cell robot, int action, int cost) {
+		this.x = robot.getX();
+		this.y = robot.getY();
+		//this.orientation = robot.getOrientation();
+		this.action = action;
+		this.cost = cost;
+		
+	}
+	
 	public int getX() {
 		return x;
 	}
