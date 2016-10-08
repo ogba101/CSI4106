@@ -18,8 +18,9 @@ public class BFSStrategy  extends SearchStrategyBase {
     
 	public void search() {
     	solution = new Solution();
-  	  solution.addAction(new RobotAction(robot, RobotAction.ACTION_START, 0));
+  	 // solution.addAction(new RobotAction(robot, RobotAction.ACTION_START, 0));
         startCell=grid[robot.getX()][robot.getY()];
+        startCell.statenode.setParentNode(new StateNode());
         
       while(dirtyCellCount!=0){
     LinkedList<Cell> closedList = new LinkedList<Cell>();
@@ -46,7 +47,7 @@ public class BFSStrategy  extends SearchStrategyBase {
               if (!closedList.contains(neighborNode) && !openList.contains(neighborNode)) 
                  {
                   neighborNode.statenode.setParentNode(node.statenode);
-                  neighborNode.statenode.setDirtyCellCount(node.statenode.getDirtyCellCount());
+                 // neighborNode.statenode.setDirtyCellCount(node.statenode.getDirtyCellCount());
                    openList.add(neighborNode);
                  }
             }
@@ -56,12 +57,12 @@ public class BFSStrategy  extends SearchStrategyBase {
     }
 	}
 solution.start();
-
+//Compare prev Cell and current Cell
 	  for(StateNode cell: path) // for every cell in the path
 	  
 	  {
 	  robot.setX(cell.getX());
-	  robot.setY(cell.getY());
+	  robot.setY(cell.getY()); 
 		  
 	solution.addAction(new RobotAction(robot, RobotAction.ACTION_START, 0));
 	  } 
@@ -78,12 +79,11 @@ solution.start();
 		  while (node.getParentNode() != null) 
 		  {
 		    tempPath.addFirst(node);
-			//path.add(node);
 		    node=node.getParentNode();
 		  }
-		  path.addAll(tempPath);
+		  path.addAll(tempPath); // append new path
 		  StateNode sNode=path.get(path.size() - 1);
-		 startCell=new Cell(sNode.getX(),sNode.getY());
+		 startCell=new Cell(sNode.getX(),sNode.getY()); // Make end of path new startNode
 		  } 
 	
 	public ArrayList<Cell> genSuccessors(Cell cell)
@@ -107,10 +107,7 @@ solution.start();
 		if (y<3 && grid[x][y+1].getState()!=Cell.STATE_OBSTACLE)
 		{
 			list.add(grid[x][y+1]);
-		}
-		
-		
-//		
+		}	
 		return list;
 	}
 
