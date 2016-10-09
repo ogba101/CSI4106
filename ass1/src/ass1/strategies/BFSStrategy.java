@@ -64,6 +64,7 @@ public class BFSStrategy  extends SearchStrategyBase {
       if dir==0(just move) */
       StateNode next= new StateNode();
 	  StateNode state=new StateNode();
+	  solution.setDepth(path.size()+1);
 	  for( int index=0;index<path.size();index++) // for every node in the path
 	  {
 		state=path.get(index); 
@@ -71,27 +72,28 @@ public class BFSStrategy  extends SearchStrategyBase {
 		robot.setY(state.getY());
 		  if (index!=path.size()-1) 
 		  {
-			  next =path.get(index+1);
+		 next=path.get(index+1);
 		  }
 		  if(index==0) // The start Node
 		  {
-			  solution.addAction(new RobotAction(robot, RobotAction.ACTION_START, 1)); 
+			  solution.addAction(new RobotAction(robot, RobotAction.ACTION_START)); 
 		  }
 		  else {
-		  solution.addAction(new RobotAction(robot,RobotAction.ACTION_MOVE));
-
-			  if(state.getDirtyCellCount()==dummyv)
-		  {
-			solution.addAction(new RobotAction(robot,RobotAction.ACTION_SUCK));  
-		  }
-			  if(index!=path.size()-1)
-			  {
-				rotate(state,next);  
-			  }  
 			  
+		  solution.addAction(new RobotAction(robot,RobotAction.ACTION_MOVE));
+		
+			  if(state.getDirtyCellCount()==dummyv)
+		       {
+			     solution.addAction(new RobotAction(robot,RobotAction.ACTION_SUCK));  
+		       }
+			  
+			
 		  }
 		  
-		  
+		  if(index<path.size()-1)
+		  {
+			rotate(state,next);  
+		  }
 		  
 //	  robot.setX(cell.getX());
 //	  robot.setY(cell.getY()); 
@@ -102,16 +104,17 @@ public class BFSStrategy  extends SearchStrategyBase {
 }
 	public int getDir(StateNode now, StateNode next) //Returns desired orientation of robot
 	{
-		if (next.getY()>now.getY()){return Robot.ORIENTATION_NORTH;} // North
-		if (next.getY()<now.getY()){return Robot.ORIENTATION_SOUTH;} // South
-		if(next.getX()<now.getX()) {return Robot.ORIENTATION_EAST;} //East
-		if(next.getX()>now.getX()) {return Robot.ORIENTATION_WEST;}  //West
+		if (next.getY()>now.getY()){return Robot.ORIENTATION_EAST;} // North
+		if (next.getY()<now.getY()){return Robot.ORIENTATION_WEST;} // South
+		if(next.getX()<now.getX()) {return Robot.ORIENTATION_NORTH;} //East
+		if(next.getX()>now.getX()) {return Robot.ORIENTATION_SOUTH;}  //West
 		return 0;
 	}
 public void rotate(StateNode now, StateNode next)
 {
 	
 	int desiredOr= getDir(now,next);
+	
 	int currOr= robot.getOrientation();
 	int change=desiredOr-currOr;
 	robot.setOrientation(desiredOr); //

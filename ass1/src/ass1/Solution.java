@@ -6,6 +6,7 @@ import java.util.Date;
 public class Solution {
 	private long startTime = 0;
 	private long endTime = 0;
+	private int depth=0;
 	
 	private ArrayList<RobotAction> actions;
 	
@@ -27,7 +28,7 @@ public class Solution {
 	
 	public void print() {
 		int totalCost = 0;
-		int depth = 0;
+		
 		
 		for(RobotAction action: actions) {
 			System.out.printf("pos(%d,%d), %s, %s\n", 
@@ -44,9 +45,14 @@ public class Solution {
 		System.out.printf("Depth: %d\n", depth);
 		System.out.printf("Time: %dms\n", (endTime - startTime));
 	}
+	public void setDepth(int value)
+	{
+		depth=value;
+	}
 	
 	private String getOrientationLabel(int orientation) {
-		switch (orientation) {
+		switch (orientation)
+		{
 			case Robot.ORIENTATION_NORTH: return "North";
 			case Robot.ORIENTATION_EAST: return "East";
 			case Robot.ORIENTATION_SOUTH: return "South";

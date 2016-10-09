@@ -42,7 +42,29 @@ public class RobotAction {
 			this.y = robot.getY();
 			this.orientation = robot.getOrientation();
 			this.action = action;
-			this.cost = 5;
+			switch (action)
+			{
+			case RobotAction.ACTION_LOOK_LEFT:
+			this.cost = 20;
+			break;
+			case RobotAction.ACTION_LOOK_RIGHT:
+			this.cost = 20;
+			break;
+		   case RobotAction.ACTION_MOVE:
+				this.cost=50;
+				break;
+			case RobotAction.ACTION_SUCK:
+				this.cost=10;
+				break;
+				
+			case RobotAction.ACTION_START:
+				this.cost=0;
+				break;
+			default :
+	            System.out.println("Invalid Action");
+
+
+			}
 		
 	}
 	
