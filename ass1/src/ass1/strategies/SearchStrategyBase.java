@@ -22,12 +22,12 @@ abstract public class SearchStrategyBase implements SearchStrategyInterface {
 			} //for
 		} //for
 		System.out.println("Number of dirty cells "+ dirtyCellCount);
-//		for (int row = 0; row < grid.length; row++) {
-//			for (int col = 0; col < grid[row].length; col++)
-//			{				
-//				grid[row][col].statenode.setDirtyCellCount(dirtyCellCount);
-//	         }  
-//			}
+		for (int row = 0; row < grid.length; row++) {
+			for (int col = 0; col < grid[row].length; col++)
+			{				
+				grid[row][col].statenode.setDirtyCellCount(dirtyCellCount);
+	         }  
+			}
 	}
 	
 	protected int getDirtyCellCount() {

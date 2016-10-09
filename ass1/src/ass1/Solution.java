@@ -31,8 +31,8 @@ public class Solution {
 		
 		for(RobotAction action: actions) {
 			System.out.printf("pos(%d,%d), %s, %s\n", 
-					(action.getX()+1),
 					(action.getY()+1),
+					(action.getX()+1),
 					getOrientationLabel(action.getOrientation()),
 					getActionLabel(action.getAction())
 				);

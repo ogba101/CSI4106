@@ -35,7 +35,14 @@ public class RobotAction {
 		this.y = robot.getY();
 		//this.orientation = robot.getOrientation();
 		this.action = action;
-		this.cost = cost;
+		this.cost = cost;}
+	
+	public RobotAction(Robot robot, int action) {
+			this.x = robot.getX();
+			this.y = robot.getY();
+			this.orientation = robot.getOrientation();
+			this.action = action;
+			this.cost = 5;
 		
 	}
 	

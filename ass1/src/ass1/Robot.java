@@ -56,7 +56,7 @@ public class Robot {
 	{
 		cost+=SUCK;
 	}
-	void setOrientation(int or)
+	public void setOrientation(int or)
 	{
 		this.orientation=or;
 	}

@@ -9,8 +9,9 @@ import ass1.Solution;
 import ass1.StateNode;
 
 public class BFSStrategy  extends SearchStrategyBase {
+	final int dummyv=-100; // Dummy value
     private Solution solution;
-	  LinkedList<StateNode> path = new LinkedList<StateNode>();
+	  LinkedList<StateNode> path = new LinkedList<StateNode>();// list to store final path
 	  Cell startCell= null;
     public BFSStrategy(Cell[][] grid, Robot robot) {
     	super(grid, robot);
@@ -18,10 +19,10 @@ public class BFSStrategy  extends SearchStrategyBase {
     
 	public void search() {
     	solution = new Solution();
-  	 // solution.addAction(new RobotAction(robot, RobotAction.ACTION_START, 0));
-        startCell=grid[robot.getX()][robot.getY()];
-        startCell.statenode.setParentNode(new StateNode());
-        
+        startCell=grid[robot.getX()][robot.getY()]; //initialize start cell
+        StateNode dummy= new StateNode();
+        startCell.statenode.setParentNode(dummy);
+        solution.start();
       while(dirtyCellCount!=0){
     LinkedList<Cell> closedList = new LinkedList<Cell>();
     LinkedList<Cell> openList = new LinkedList<Cell>(); // open list
@@ -32,6 +33,7 @@ public class BFSStrategy  extends SearchStrategyBase {
         if(node.getState()==Cell.STATE_DIRTY)
         {
           dirtyCellCount--;
+          node.statenode.setDirtyCellCount(dummyv); 
           node.setState(Cell.STATE_CLEAN);
          constructPath(node.statenode);
          break;
@@ -56,19 +58,78 @@ public class BFSStrategy  extends SearchStrategyBase {
 
     }
 	}
-solution.start();
-//Compare prev Cell and current Cell
-	  for(StateNode cell: path) // for every cell in the path
-	  
+/*-----------------------------------------------------
+ * if Previous state exists
+      compare previous state and current state to determine direction
+      if dir==0(just move) */
+      StateNode next= new StateNode();
+	  StateNode state=new StateNode();
+	  for( int index=0;index<path.size();index++) // for every node in the path
 	  {
-	  robot.setX(cell.getX());
-	  robot.setY(cell.getY()); 
+		state=path.get(index); 
+		robot.setX(state.getX());
+		robot.setY(state.getY());
+		  if (index!=path.size()-1) 
+		  {
+			  next =path.get(index+1);
+		  }
+		  if(index==0) // The start Node
+		  {
+			  solution.addAction(new RobotAction(robot, RobotAction.ACTION_START, 1)); 
+		  }
+		  else {
+		  solution.addAction(new RobotAction(robot,RobotAction.ACTION_MOVE));
+
+			  if(state.getDirtyCellCount()==dummyv)
+		  {
+			solution.addAction(new RobotAction(robot,RobotAction.ACTION_SUCK));  
+		  }
+			  if(index!=path.size()-1)
+			  {
+				rotate(state,next);  
+			  }  
+			  
+		  }
 		  
-	solution.addAction(new RobotAction(robot, RobotAction.ACTION_START, 0));
+		  
+		  
+//	  robot.setX(cell.getX());
+//	  robot.setY(cell.getY()); 
+//		  
+//	solution.addAction(new RobotAction(robot, RobotAction.ACTION_START, 0));
 	  } 
 	  solution.end();
 }
-
+	public int getDir(StateNode now, StateNode next) //Returns desired orientation of robot
+	{
+		if (next.getY()>now.getY()){return Robot.ORIENTATION_NORTH;} // North
+		if (next.getY()<now.getY()){return Robot.ORIENTATION_SOUTH;} // South
+		if(next.getX()<now.getX()) {return Robot.ORIENTATION_EAST;} //East
+		if(next.getX()>now.getX()) {return Robot.ORIENTATION_WEST;}  //West
+		return 0;
+	}
+public void rotate(StateNode now, StateNode next)
+{
+	
+	int desiredOr= getDir(now,next);
+	int currOr= robot.getOrientation();
+	int change=desiredOr-currOr;
+	robot.setOrientation(desiredOr); //
+	if (change==1  || change == -3)
+	{solution.addAction(new RobotAction(robot,RobotAction.ACTION_LOOK_RIGHT));  } // Move Right
+	if (change==-1 || change ==3)
+	{solution.addAction(new RobotAction(robot,RobotAction.ACTION_LOOK_LEFT));  } // Move left
+	if(change==2   || change ==-2)
+	{ 
+		int value= currOr-1;
+	   if(value!=-1)
+	   {robot.setOrientation(value);}else{robot.setOrientation(3);}
+		{solution.addAction(new RobotAction(robot,RobotAction.ACTION_LOOK_LEFT));  } // Move left
+		{solution.addAction(new RobotAction(robot,RobotAction.ACTION_LOOK_LEFT));  } // Move left
+		robot.setOrientation(desiredOr); //
+	} // Turn 180
+	
+}
 	public Solution getSolution() {
 		
 	 return solution;
