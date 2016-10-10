@@ -64,7 +64,7 @@ public class BFSStrategy  extends SearchStrategyBase {
       if dir==0(just move) */
       StateNode next= new StateNode();
 	  StateNode state=new StateNode();
-	  solution.setDepth(path.size()+1);
+	  solution.setDepth(path.size()+1); //depth of tree
 	  for( int index=0;index<path.size();index++) // for every node in the path
 	  {
 		state=path.get(index); 
