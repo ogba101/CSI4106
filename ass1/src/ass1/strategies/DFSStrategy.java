@@ -19,10 +19,10 @@ public class DFSStrategy  extends SearchStrategyBase {
     
 	public void search() {
     	solution = new Solution();
+    	solution.start();
         startCell=grid[robot.getX()][robot.getY()]; //initialize start cell
         StateNode dummy= new StateNode();
         startCell.statenode.setParentNode(dummy);
-        solution.start();
       while(dirtyCellCount!=0){
     LinkedList<Cell> closedList = new LinkedList<Cell>();
     LinkedList<Cell> openList = new LinkedList<Cell>(); // open list

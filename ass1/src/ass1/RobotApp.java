@@ -35,15 +35,15 @@ public class RobotApp {
 				{0,1,1,0},
 				{0,1,0,0},
 				{0,0,0,0}				
-		};
+				};
 		
 		int[] startPosition = {2,3};
 		
 		int orientation = Robot.ORIENTATION_WEST;
 		int chosenStrategy;
 		
-		//chosenStrategy = STRATEGY_DFS;
-		chosenStrategy = STRATEGY_BFS;
+		chosenStrategy = STRATEGY_DFS;
+		//chosenStrategy = STRATEGY_BFS;
 		//chosenStrategy = STRATEGY_ASTAR;
 		
 		try {

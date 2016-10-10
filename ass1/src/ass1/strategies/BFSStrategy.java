@@ -18,8 +18,8 @@ public class BFSStrategy  extends SearchStrategyBase {
     }
     
 	public void search() {
-		 solution.start();
     	solution = new Solution();
+        solution.start();
         startCell=grid[robot.getX()][robot.getY()]; //initialize start cell
         StateNode dummy= new StateNode();
         startCell.statenode.setParentNode(dummy);
@@ -49,13 +49,11 @@ public class BFSStrategy  extends SearchStrategyBase {
               if (!closedList.contains(neighborNode) && !openList.contains(neighborNode)) 
                  {
                   neighborNode.statenode.setParentNode(node.statenode);
-                 // neighborNode.statenode.setDirtyCellCount(node.statenode.getDirtyCellCount());
-                   openList.add(neighborNode);// add at the end to simulate queue
+                   openList.add(neighborNode);
                  }
             }
             
           }
-
     }
 	}
 /*-----------------------------------------------------
@@ -85,25 +83,22 @@ public class BFSStrategy  extends SearchStrategyBase {
 			  if(state.getDirtyCellCount()==dummyv)
 		       {
 			     solution.addAction(new RobotAction(robot,RobotAction.ACTION_SUCK));  
-		       }
-			  
-			
+		       }	
 		  }
 		  
 		  if(index<path.size()-1)
 		  {
 			rotate(state,next);  
 		  }
-		  
 	  } 
 	  solution.end();
 }
 	public int getDir(StateNode now, StateNode next) //Returns desired orientation of robot
 	{
-		if (next.getY()>now.getY()){return Robot.ORIENTATION_EAST;} 
-		if (next.getY()<now.getY()){return Robot.ORIENTATION_WEST;} 
-		if(next.getX()<now.getX()) {return Robot.ORIENTATION_NORTH;} 
-		if(next.getX()>now.getX()) {return Robot.ORIENTATION_SOUTH;} 
+		if (next.getY()>now.getY()){return Robot.ORIENTATION_EAST;} // North
+		if (next.getY()<now.getY()){return Robot.ORIENTATION_WEST;} // South
+		if(next.getX()<now.getX()) {return Robot.ORIENTATION_NORTH;} //East
+		if(next.getX()>now.getX()) {return Robot.ORIENTATION_SOUTH;}  //West
 		return 0;
 	}
 public void rotate(StateNode now, StateNode next)
