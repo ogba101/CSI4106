@@ -18,11 +18,11 @@ public class BFSStrategy  extends SearchStrategyBase {
     }
     
 	public void search() {
+		 solution.start();
     	solution = new Solution();
         startCell=grid[robot.getX()][robot.getY()]; //initialize start cell
         StateNode dummy= new StateNode();
         startCell.statenode.setParentNode(dummy);
-        solution.start();
       while(dirtyCellCount!=0){
     LinkedList<Cell> closedList = new LinkedList<Cell>();
     LinkedList<Cell> openList = new LinkedList<Cell>(); // open list
@@ -50,7 +50,7 @@ public class BFSStrategy  extends SearchStrategyBase {
                  {
                   neighborNode.statenode.setParentNode(node.statenode);
                  // neighborNode.statenode.setDirtyCellCount(node.statenode.getDirtyCellCount());
-                   openList.add(neighborNode);
+                   openList.add(neighborNode);// add at the end to simulate queue
                  }
             }
             
@@ -95,19 +95,15 @@ public class BFSStrategy  extends SearchStrategyBase {
 			rotate(state,next);  
 		  }
 		  
-//	  robot.setX(cell.getX());
-//	  robot.setY(cell.getY()); 
-//		  
-//	solution.addAction(new RobotAction(robot, RobotAction.ACTION_START, 0));
 	  } 
 	  solution.end();
 }
 	public int getDir(StateNode now, StateNode next) //Returns desired orientation of robot
 	{
-		if (next.getY()>now.getY()){return Robot.ORIENTATION_EAST;} // North
-		if (next.getY()<now.getY()){return Robot.ORIENTATION_WEST;} // South
-		if(next.getX()<now.getX()) {return Robot.ORIENTATION_NORTH;} //East
-		if(next.getX()>now.getX()) {return Robot.ORIENTATION_SOUTH;}  //West
+		if (next.getY()>now.getY()){return Robot.ORIENTATION_EAST;} 
+		if (next.getY()<now.getY()){return Robot.ORIENTATION_WEST;} 
+		if(next.getX()<now.getX()) {return Robot.ORIENTATION_NORTH;} 
+		if(next.getX()>now.getX()) {return Robot.ORIENTATION_SOUTH;} 
 		return 0;
 	}
 public void rotate(StateNode now, StateNode next)
@@ -150,7 +146,7 @@ public void rotate(StateNode now, StateNode next)
 		 startCell=new Cell(sNode.getX(),sNode.getY()); // Make end of path new startNode
 		  } 
 	
-	public ArrayList<Cell> genSuccessors(Cell cell)
+	public ArrayList<Cell> genSuccessors(Cell cell) // Generate Successors
 	{
 		ArrayList<Cell> list = new ArrayList<Cell>();
 		int x=cell.getX();
@@ -158,7 +154,7 @@ public void rotate(StateNode now, StateNode next)
 		
 		if (x<3 && grid[x+1][y].getState()!=Cell.STATE_OBSTACLE)
 		{
-			list.add(grid[x+1][y]);
+			list.add(grid[x+1][y]); 
 		}
 		if (x>0 && grid[x-1][y].getState()!=Cell.STATE_OBSTACLE)
 		{

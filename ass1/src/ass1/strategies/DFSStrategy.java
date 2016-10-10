@@ -50,7 +50,7 @@ public class DFSStrategy  extends SearchStrategyBase {
                  {
                   neighborNode.statenode.setParentNode(node.statenode);
                  // neighborNode.statenode.setDirtyCellCount(node.statenode.getDirtyCellCount());
-                   openList.add(neighborNode);
+                   openList.addFirst(neighborNode);// Add first to simulate stack
                  }
             }
             
@@ -97,10 +97,10 @@ public class DFSStrategy  extends SearchStrategyBase {
 }
 	public int getDir(StateNode now, StateNode next) //Returns desired orientation of robot
 	{
-		if (next.getY()>now.getY()){return Robot.ORIENTATION_EAST;} // North
-		if (next.getY()<now.getY()){return Robot.ORIENTATION_WEST;} // South
-		if(next.getX()<now.getX()) {return Robot.ORIENTATION_NORTH;} //East
-		if(next.getX()>now.getX()) {return Robot.ORIENTATION_SOUTH;}  //West
+		if (next.getY()>now.getY()){return Robot.ORIENTATION_EAST;} 
+		if (next.getY()<now.getY()){return Robot.ORIENTATION_WEST;} 
+		if(next.getX()<now.getX()) {return Robot.ORIENTATION_NORTH;}
+		if(next.getX()>now.getX()) {return Robot.ORIENTATION_SOUTH;}
 		return 0;
 	}
 public void rotate(StateNode now, StateNode next)
@@ -151,19 +151,19 @@ public void rotate(StateNode now, StateNode next)
 		
 		if (x<3 && grid[x+1][y].getState()!=Cell.STATE_OBSTACLE)
 		{
-			list.addFirst(grid[x+1][y]); // Add first to simulate stack
+			list.add(grid[x+1][y]); 
 		}
 		if (x>0 && grid[x-1][y].getState()!=Cell.STATE_OBSTACLE)
 		{
-			list.addFirst(grid[x-1][y]);
+			list.add(grid[x-1][y]);
 		}
 		if (y>0 && grid[x][y-1].getState()!=Cell.STATE_OBSTACLE)
 		{
-			list.addFirst(grid[x][y-1]);
+			list.add(grid[x][y-1]);
 		}
 		if (y<3 && grid[x][y+1].getState()!=Cell.STATE_OBSTACLE)
 		{
-			list.addFirst(grid[x][y+1]);
+			list.add(grid[x][y+1]);
 		}	
 		return list;
 	}

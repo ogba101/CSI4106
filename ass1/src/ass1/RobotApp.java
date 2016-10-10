@@ -42,8 +42,8 @@ public class RobotApp {
 		int orientation = Robot.ORIENTATION_WEST;
 		int chosenStrategy;
 		
-		chosenStrategy = STRATEGY_DFS;
-		//chosenStrategy = STRATEGY_BFS;
+		//chosenStrategy = STRATEGY_DFS;
+		chosenStrategy = STRATEGY_BFS;
 		//chosenStrategy = STRATEGY_ASTAR;
 		
 		try {
