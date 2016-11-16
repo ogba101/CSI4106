@@ -5,7 +5,6 @@ height(tall). height(short).
 
 eyes(blue). eyes(brown).
 
-
 /* men */
 man(chris).
 man(john).
@@ -52,6 +51,7 @@ skin_color(stella,green).
 skin_color(jessica,green).
 skin_color(bell,green).
 
+/*  what defines a person */
 person(X) :- man(X).
 person(X) :- woman(X).
 
@@ -66,16 +66,43 @@ activity(paul, soccer, 7).
 activity(paul, coffee, 9).
 activity(paul, dancing, 11).
 
-/* siblings */
-siblings(john,jessica).
-siblings(jessica,dave).
-siblings(dave,bob).
-siblings(elias,paul).
+/* weapons */
+weapon(gun).
+weapon(knife).
+weapon(rope).
+weapon(poison).
 
-sibling(X,Y) :- siblings(X,Y).
-sibling(X,Y) :- siblings(Y,X).
-sibling(X,Y) :- siblings(X,Z), sibling(Y,Z).
-sibling(X,Y) :- siblings(Z,X), sibling(Y,Z).
+trained(chris, gun).
+trained(chris, poison).
+
+trained(paul, gun).
+trained(paul, rope).
+
+trained(paul, poison).
+
+trained(lisa, gun).
+trained(lisa, rope).
+trained(lisa, poison).
+
+trained(stella, rope).
+
+trained(jessica, poison).
+
+trained(bell, gun).
+
+trained(X, knife) :- person(X). /* everyone knows how to use a knife */
+
+/* relationships */
+parent(chris, john).
+parent(lisa, john).
+
+parent(chris, paul).
+parent(lisa, paul).
+
+parent(john, dave).
+parent(stella, dave).
+
+sibling(X,Y) :- parent(Z,X),parent(Z,Y).
 
 /* who loves who */
 loves(chris,lisa).
@@ -96,5 +123,7 @@ married(X,Y) :- gotmarried(Y,X).
 jealous(X,Y) :- married(X, Z), loves(Z,Y), X \== Y.
 married_not_in_love(X) :- married(X,Y), \+ loves(X,Y). 
 
-investigate_murder(X,T,Y) :- jealous(Y, X), \+ activity(Y, Z, T).
-investigate_murder(X,T,Y) :- married_not_in_love(Y), married(X,Y), \+ activity(Y, Z, T).
+/* murder solving rules */
+investigate_murder(X,T,W,Y) :- jealous(Y, X),  trained(Y, W), \+ activity(Y, _Z, T).
+investigate_murder(X,T,W,Y) :- married_not_in_love(Y), married(X,Y), trained(Y, W),  \+ activity(Y, _Z, T).
+
