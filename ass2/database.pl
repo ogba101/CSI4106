@@ -55,16 +55,21 @@ skin_color(bell,green).
 person(X) :- man(X).
 person(X) :- woman(X).
 
+/* valide times */
+time(morning).
+time(afternoon).
+time(evenning).
+
 /* who is doing what */
-activity(chris, dinner, 7).
-activity(chris, movie, 9).
-activity(chris, dancing, 11).
+activity(chris, dinner, afternoon).
+activity(chris, movie, evenning).
+activity(chris, dancing, evenning).
 
-activity(john, soccer, 7).
+activity(john, soccer, afternoon).
 
-activity(paul, soccer, 7).
-activity(paul, coffee, 9).
-activity(paul, dancing, 11).
+activity(paul, coffee, morning).
+activity(paul, soccer, afternoon).
+activity(paul, dancing, evenning).
 
 /* weapons */
 weapon(gun).
@@ -124,9 +129,9 @@ jealous(X,Y) :- married(X, Z), loves(Z,Y), X \== Y.
 married_not_in_love(X) :- married(X,Y), \+ loves(X,Y). 
 
 /* murder solving rules */
-investigate_murder(X,T,W,Y) :- jealous(Y, X),  trained(Y, W), \+ activity(Y, _Z, T).
-investigate_murder(X,T,W,Y) :- married_not_in_love(Y), married(X,Y), trained(Y, W),  \+ activity(Y, _Z, T).
-investigate_murder(_,T,W,Y) :- psychopath(Y), trained(Y, W),  \+ activity(Y, _Z, T).
+investigate_murder(X,T,W,Y) :- time(T), jealous(Y, X),  trained(Y, W), \+ activity(Y, _Z, T).
+investigate_murder(X,T,W,Y) :- time(T), married_not_in_love(Y), married(X,Y), trained(Y, W),  \+ activity(Y, _Z, T).
+investigate_murder(_,T,W,Y) :- time(T), psychopath(Y), trained(Y, W),  \+ activity(Y, _Z, T).
 
 /* list people's behaviours */
 behaviour(chris, ['eat hummus', 'pull wings off flies', 'eat human flesh', 'listen to heavy metal']).
