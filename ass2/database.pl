@@ -126,4 +126,18 @@ married_not_in_love(X) :- married(X,Y), \+ loves(X,Y).
 /* murder solving rules */
 investigate_murder(X,T,W,Y) :- jealous(Y, X),  trained(Y, W), \+ activity(Y, _Z, T).
 investigate_murder(X,T,W,Y) :- married_not_in_love(Y), married(X,Y), trained(Y, W),  \+ activity(Y, _Z, T).
+investigate_murder(_,T,W,Y) :- count_psychopatic_behavriour(Y, C),  C >= 3, trained(Y, W),  \+ activity(Y, _Z, T).
+
+behaviour(chris, ['eat hummus', 'pull wings off flies', 'eat human flesh', 'listen to heavy metal']).
+behaviour(stella, ['eat hummus', 'reads books', 'listen to heavy metal']).
+psychopathic('pull wings off flies').
+psychopathic('eat human flesh').
+psychopathic('listen to heavy metal').
+
+find_psychopatic_behaviour(X, Y) :- behaviour(X, Z), find_psychopatic_behaviour(X, Y, Z), Y \= [].
+find_psychopatic_behaviour(_, [], []).
+find_psychopatic_behaviour(_, Y, [H | T]) :- psychopathic(H), find_psychopatic_behaviour(_, Z, T), append([H], Z, Y), !.
+find_psychopatic_behaviour(_, Y, [_ | T]) :- find_psychopatic_behaviour(_, Y, T).
+
+count_psychopatic_behavriour(X, Count) :- find_psychopatic_behaviour(X, Z), length(Z, Count).
 
